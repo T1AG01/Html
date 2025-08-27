@@ -4,21 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Formulario</title>
 </head>
 <body>
 
-<style>
-    .borda-erro{
-        border: solid red;
-    }
-
-
-</style>
+<h1>Formulário</h1>
 
 <h2>Cadastro de Usuário</h2>
 <form action="" id="user-form" name="user-form">
-    <div>
+    <div class="cadastro">
         <label for="nome">Nome</label>
         <input type="text" name="" id="nome"
             placeholder= "Digite o seu nome"
@@ -27,7 +22,7 @@
     </div>
     <br>
 
-    <div>
+    <div class="cadastro">
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email"
         placeholder="email@exemplo.com"
@@ -35,7 +30,7 @@
         >
     </div>
     <br>
-    <div>
+    <div class="cadastro">
         <label for="senha">Senha</label>
         <input type="password" name="senha" id="senha"
         required minlength="6" maxlength="20"
@@ -43,11 +38,17 @@
         >
     </div>
     <br>
-<div>
+    <div class="cadastro">
         <label for="confirmacao-senha">Confirme a Senha</label>
         <input type="password" name="confirmacao-senha" id="confirmacao-senha"
         required minlength="6" maxlength="20"
         placeholder="De 6 a 20 caracteres"
+        >
+    </div>
+    <br>
+    <div class="cadastro">
+        <label for="confirmacao-senha">Data de nascimento</label>
+        <input type="date" name="nascimento" id="nascimento"
         >
     </div>
     <br>
@@ -64,18 +65,31 @@
         let email = document.getElementById('email').value;
         let senha = document.getElementById('senha').value
         let confirmacao_senha = document.getElementById('confirmacao-senha').value
+        let dataNascimento = document.getElementById('nascimento').value
 
-        if(senha == confirmacao_senha){
-            alert('Formulário enviado com sucesso!')
+        if(!maiorDeIdade(dataNascimento)){
+            alert('Menor de idade!')
         }
-        else{
-            alert('Senhas diferentes, formulario não enviado!')
-        }
+        
 
-        if(senha.length === 0 || confirmacao_senha.length === 0){
+        if(senha.length === 0 & confirmacao_senha.length === 0){
+            document.getElementById('senha').classList.add('borda-erro')
+            document.getElementById('confirmacao-senha').classList.add('borda-erro')
+        }
+        else if(senha.length === 0){
             document.getElementById('senha').classList.add('borda-erro')
         }
-
+        else if(confirmacao_senha.length === 0){
+            document.getElementById('confirmacao-senha').classList.add('borda-erro')
+        }
+        else{
+            if(senha == confirmacao_senha){
+            alert('Formulário enviado com sucesso!')
+        }
+            else{
+            alert('Senhas diferentes, formulario não enviado!')
+        }
+        }
 
     }
 </script>
