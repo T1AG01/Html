@@ -47,52 +47,110 @@
     </div>
     <br>
     <div class="cadastro">
+        <label for="ddd">Digite seu DDD</label>
+        <input type="number" name="ddd" id="ddd"
+        required minlength="2" maxlength="2"
+        placeholder="Ex: 12"
+        >
+    </div>
+    <br>
+    <div class="cadastro">
+        <label for="telefone">Telefone</label>
+        <input type="number" name="telefone" id="telefone"
+        required minlength="9" maxlength="9"
+        placeholder="Ex: 12345-6789 "
+        pattern="-"
+        >
+    </div>
+    <br>
+    <div class="cadastro">
         <label for="confirmacao-senha">Data de nascimento</label>
         <input type="date" name="nascimento" id="nascimento"
         >
     </div>
     <br>
+    <div class="cadastro">
+        <label>Sexo</label>
+        <label><input type="radio" name="sexo" value="Masculino"> Masculino</label>
+        <label><input type="radio" name="sexo" value="Feminino"> Feminino</label>
+    </div>
+    <br>
+    <label for="departamento">Área que deseja atuar:</label>
+    <br>
+    <select id="departamento" name="departamento" required>
+        <option value="" disabled selected>Selecione</option>
+        <option value="recursos-humanos">RH</option>
+        <option value="financeiro">Financeiro</option>
+        <option value="marketing">Marketing</option>
+        <option value="tecnologia">Tecnologia</option>
+        <option value="juridico">Jurídico</option>
+        <option value="administrativo">Administrativo</option>
+        <option value="outro">Outro</option>
+
+</select>
+<br><br>
+<div class="cadastro">
+    <label><input type="checkbox" name="termos"> Aceito os Termos de uso</label>
+</div>
+<div class="cadastro">
+    <label><input type="checkbox" name="notificacoes"> Receber notificações</label>
+</div>
+<br>
     <div>
         <button name="botao-enviar" type="button" 
         onclick="enviarForm()">Enviar</button>
     </div>
 </form>
-
+<br><br><br>
 <script>
-    function enviarForm(){
-        
-        let nome = document.getElementById('nome').value;
-        let email = document.getElementById('email').value;
-        let senha = document.getElementById('senha').value
-        let confirmacao_senha = document.getElementById('confirmacao-senha').value
-        let dataNascimento = document.getElementById('nascimento').value
+    function enviarForm() {
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+    const confirmacao_senha = document.getElementById('confirmacao-senha').value;
+    const nascimento = document.getElementById('nascimento').value;
+    const ddd = document.getElementById('ddd').value;
+    const telefone = document.getElementById('telefone').value;
+    const departamento = document.getElementById('departamento').value;
 
-        if(!maiorDeIdade(dataNascimento)){
-            alert('Menor de idade!')
-        }
-        
+    // Radio
+    const sexoRadio = document.querySelector('input[name="sexo"]:checked');
+    const sexo = sexoRadio ? sexoRadio.value : '';
 
-        if(senha.length === 0 & confirmacao_senha.length === 0){
-            document.getElementById('senha').classList.add('borda-erro')
-            document.getElementById('confirmacao-senha').classList.add('borda-erro')
-        }
-        else if(senha.length === 0){
-            document.getElementById('senha').classList.add('borda-erro')
-        }
-        else if(confirmacao_senha.length === 0){
-            document.getElementById('confirmacao-senha').classList.add('borda-erro')
-        }
-        else{
-            if(senha == confirmacao_senha){
-            alert('Formulário enviado com sucesso!')
-        }
-            else{
-            alert('Senhas diferentes, formulario não enviado!')
-        }
-        }
+    // Checkboxes
+    const termos = document.querySelector('input[name="termos"]').checked;
+    const notificacoes = document.querySelector('input[name="notificacoes"]').checked;
 
+    // Validação de senha
+    if (!senha || !confirmacao_senha) {
+        if (!senha) document.getElementById('senha').classList.add('borda-erro');
+        if (!confirmacao_senha) document.getElementById('confirmacao-senha').classList.add('borda-erro');
+        return;
+    } else if (senha !== confirmacao_senha) {
+        alert('Senhas diferentes, formulário não enviado!');
+        return;
+    } else {
+        alert('Formulário enviado com sucesso!');
     }
-</script>
+
+    const dadosFormulario = {
+        nome,
+        email,
+        senha,
+        confirmacao_senha,
+        nascimento,
+        ddd,
+        telefone,
+        sexo,
+        departamento,
+        termos,
+        notificacoes
+    };
+
+    console.log(dadosFormulario);
+}
+
+    </script>
 
 
 
